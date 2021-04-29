@@ -33,7 +33,15 @@ class NonDecreasingPlots(HarvesterConditionChecker):
             event = Event(
                 type=EventType.USER, priority=EventPriority.HIGH, service=EventService.HARVESTER, message=message
             )
-
+        elif obj.found_proofs_count > 0:
+            message = (
+                "💰 Hello farmer! You received a new proof:\n"
+            )
+            logging.info(message)
+            event = Event(
+                type=EventType.USER, priority=EventPriority.LOW, service=EventService.HARVESTER, message=message
+            )
+            
         # Update max plots to prevent repeated alarms
         self._max_farmed_plots = obj.total_plots_count
 
